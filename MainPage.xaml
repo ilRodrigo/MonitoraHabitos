@@ -1,0 +1,49 @@
+﻿<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:YourNamespace"
+             x:Class="YourNamespace.MainPage">
+
+    <StackLayout Padding="10">
+        <Label Text="Meus Hábitos" 
+           FontSize="Large" 
+           HorizontalOptions="Center" 
+           Padding="10"/>
+
+        <Entry x:Name="HabitTitleEntry" Placeholder="Nome do Hábito" />
+        <Entry x:Name="HabitFrequencyEntry" Placeholder="Frequência" />
+
+        <Button Text="Adicionar Hábito" 
+            Clicked="OnAddHabitClicked" />
+
+        <CollectionView ItemsSource="{Binding Habits}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal" Padding="5" VerticalOptions="Center">
+                    <StackLayout Orientation="Vertical" VerticalOptions="Center">
+                        <Label Text="{Binding Title}" 
+                       FontSize="Medium" 
+                       FontAttributes="Bold"/>
+                        <Label Text="{Binding Frequency}" 
+                       FontSize="Small"/>     
+                        <Label Text="{Binding CompletedTimes, StringFormat='Concluído {0} vezes'}" 
+                       FontSize="Small" 
+                       TextColor="Gray"/>
+                    </StackLayout>
+                    <Button Text="Concluir" 
+                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.CompleteHabitCommand}"
+                       CommandParameter="{Binding .}"
+                       WidthRequest="120"
+                       Margin="20,0,0,0"/>
+                    <Button Text="Excluir" 
+                       Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteHabitCommand}"
+                       CommandParameter="{Binding .}" 
+                       WidthRequest="120"
+                       BackgroundColor="IndianRed"
+                       Margin="20,0,0,0"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
+
+</ContentPage>
